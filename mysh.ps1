@@ -1,0 +1,1 @@
+ts-node Desktop/node-script/src/index.ts
