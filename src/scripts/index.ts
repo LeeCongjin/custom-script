@@ -1,6 +1,4 @@
-import { genModal } from "./gen-modal"
-import { hello } from "./hello" 
+import { genModal } from "./gen-modal/gen-modal.js";
+import { hello } from "./hello.js";
 
-export {
-  hello,genModal
-}
+export default { hello, genModal };
