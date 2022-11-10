@@ -19,21 +19,21 @@ export const modalProviderChangeMap: (
 	@cancel="cancel${firstWordUpper(stringToHump(name))}ModalCallback"
 />
 <!-- 新增Modal -->`,
-		"//新增import": `import ${firstWordUpper(
+		"/** 新增import */": `import ${firstWordUpper(
 			stringToHump(name)
 		)}Modal from "${importPath}/${firstWordUpper(stringToHump(name))}Modal.vue";
 import { provide${firstWordUpper(
 			stringToHump(name)
 		)}Modal } from "${importPath}/use-${formatToLowerCase(name)}-modal";
-//新增import`,
-		"// 新增provide": `const {
+/** 新增import */`,
+		"/** 新增provide */": `const {
 	allProps: all${firstWordUpper(stringToHump(name))}ModalProps,
 	handleUpdateShow: handle${firstWordUpper(stringToHump(name))}ModalUpdateShow,
 	closeCallback: close${firstWordUpper(stringToHump(name))}ModalCallback,
 	confirmCallback: confirm${firstWordUpper(stringToHump(name))}ModalCallback,
 	cancelCallback: cancel${firstWordUpper(stringToHump(name))}ModalCallback,
 } = provide${firstWordUpper(stringToHump(name))}Modal()
-// 新增provide`,
+/** 新增provide */`,
 	};
 };
 
