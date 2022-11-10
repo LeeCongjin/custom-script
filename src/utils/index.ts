@@ -5,6 +5,20 @@ import chalk from "chalk";
 import ora from "ora";
 import { ChangeMap } from "../scripts/gen-modal/changMap.js";
 
+export function firstWordUpper(string: string) {
+	return string.replace(/^\w/, (s) => s.toUpperCase());
+}
+
+export function stringToHump(string: string) {
+	return string.replace(/([_|-])(\w)/g, (s, p1, p2) => {
+		return p2.toUpperCase();
+	});
+}
+
+export function formatToLowerCase(string: string) {
+	return string.toLowerCase().replace(/[_|-]/g, () => "-");
+}
+
 export function formatData(filePath: string, data: string) {
 	const fileType = filePath.match(/(?:\.)(.*)$/)[1];
 	const parseValueMap = new Map([

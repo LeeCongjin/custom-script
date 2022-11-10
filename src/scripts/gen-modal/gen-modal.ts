@@ -2,14 +2,19 @@ import fse from "fs-extra";
 import path from "path";
 import chalk from "chalk";
 import ora from "ora";
-import { Command } from "commander";
 import {
 	ChangeMap,
 	modalProviderChangeMap,
 	useModalChangeMap,
 } from "./changMap.js";
 import { fileURLToPath } from "node:url";
-import { formatData, reWriteTemplate } from "../../utils/index.js";
+import {
+	firstWordUpper,
+	formatData,
+	formatToLowerCase,
+	reWriteTemplate,
+	stringToHump,
+} from "../../utils/index.js";
 import inquirer from "inquirer";
 
 const terminalPath = process.cwd(); //打开控制台的路径
@@ -49,7 +54,7 @@ export async function genModal() {
 
 	const outputDirPath = path.join(
 		terminalPath,
-		`${modalName.toLowerCase()}-modal`
+		`${formatToLowerCase(modalName)}-modal`
 	);
 	const spin = ora("生成中～～").start();
 	try {
@@ -59,19 +64,19 @@ export async function genModal() {
 			useModalChangeMap(modalName)
 		);
 		await fse.outputFile(
-			path.join(outputDirPath, `use-${modalName}-modal.ts`),
+			path.join(outputDirPath, `use-${formatToLowerCase(modalName)}-modal.ts`),
 			useModalData
 		);
 		await fse.copy(
 			path.join(templateModalDirPath, "TemplateModal.vue"),
 			path.join(
 				outputDirPath,
-				`${modalName.replace(/^\w/, (s) => s.toUpperCase())}Modal.vue`
+				`${firstWordUpper(stringToHump(modalName))}Modal.vue`
 			)
 		);
 		const modalProviderData = await reWriteTemplate(
 			modalProviderPath,
-			modalProviderChangeMap(modalName)
+			modalProviderChangeMap(modalName, outputDirPath)
 		);
 		await fse.writeFile(modalProviderPath, modalProviderData);
 	} catch (e) {
