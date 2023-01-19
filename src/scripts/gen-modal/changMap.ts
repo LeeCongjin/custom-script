@@ -2,9 +2,9 @@ import {
 	firstWordUpper,
 	formatToLowerCase,
 	stringToHump,
-} from "../../utils/index.js";
+} from "../../utils/index.js"
 
-export type ChangeMap = Record<string, string>;
+export type ChangeMap = Record<string, string>
 
 export const modalProviderChangeMap: (
 	name: string,
@@ -34,14 +34,21 @@ import { provide${firstWordUpper(
 	cancelCallback: cancel${firstWordUpper(stringToHump(name))}ModalCallback,
 } = provide${firstWordUpper(stringToHump(name))}Modal()
 /** 新增provide */`,
-	};
-};
+	}
+}
 
 export const useModalChangeMap: (name: string) => ChangeMap = (name) => {
-	name = name.toLowerCase();
+	name = name.toLowerCase()
 	return {
 		TemplateModal: `${firstWordUpper(stringToHump(name))}Modal`,
 		provideModal: `provide${firstWordUpper(stringToHump(name))}Modal`,
 		injectModal: `inject${firstWordUpper(stringToHump(name))}Modal`,
-	};
-};
+	}
+}
+
+export const TemplateModalChangeMap: (name: string) => ChangeMap = (name) => {
+	name = name.toLowerCase()
+	return {
+		modalClassName: `${stringToHump(name)}-modal`,
+	}
+}

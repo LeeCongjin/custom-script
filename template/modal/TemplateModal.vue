@@ -1,5 +1,6 @@
 <template>
 	<WayzardModal
+		class="modalClassName"
 		v-model:value="isShowModal"
 		:title="$t('测试弹窗')"
 		:show-header-divider="false"
@@ -15,7 +16,7 @@
 		@after-leave="handleClose"
 	>
 		<div>
-			<n-form>
+			<n-form ref="formRef" :rules="rules" :model="formData">
 				<n-form-item
 					path="version"
 					:label="$t('标签')"
@@ -52,70 +53,85 @@
 </template>
 
 <script setup lang="ts">
-import WayzardModal from "@/components/common/WayzardModal.vue";
-import { defineProps, defineEmits, ref, reactive, computed } from "vue";
-import { useVModel, whenever } from "@vueuse/core";
+import WayzardModal from "@/components/common/WayzardModal.vue"
+import { defineProps, defineEmits, ref, reactive, computed, watch } from "vue"
+import { useVModel } from "@vueuse/core"
+import { FormRules } from "naive-ui"
 interface ModalProps {
-	show: boolean;
-	deviceName: string;
-	deviceType: string;
-	deviceVersion: string;
+	show: boolean
+	deviceName: string
+	deviceType: string
+	deviceVersion: string
 }
 
 // 中间区域不要修改
-const props = defineProps<ModalProps>();
-
-const loading = ref(false);
-const isShowModal = useVModel(props, "show");
+const props = defineProps<ModalProps>()
+const formRef = ref()
+const loading = ref(false)
+const isShowModal = useVModel(props, "show")
 // 中间区域不要修改
+
+const rules: FormRules = []
 
 const formData = reactive({
 	inputValue: props.deviceName,
-});
+})
 
 const callBackData = computed(() => {
 	return {
 		formData,
-	};
-});
-whenever(
+	}
+})
+watch(
 	() => props.show,
 	() => {
 		if (props.show) {
-			formData.inputValue = props.deviceName;
+			formData.inputValue = props.deviceName
 		} else {
-			formData.inputValue = "";
+			formData.inputValue = ""
 		}
 	}
-);
+)
 
 const emits = defineEmits<{
-	(e: "update:show", value: boolean): void;
-	(e: "close", param: typeof callBackData.value): void;
-	(e: "confirm", param: typeof callBackData.value, close: () => void): void;
-	(e: "cancel", param: typeof callBackData.value): void;
-}>();
+	(e: "update:show", value: boolean): void
+	(e: "close", param: typeof callBackData.value): void
+	(
+		e: "confirm",
+		param: typeof callBackData.value,
+		close: () => void,
+		endLoading: () => void
+	): void
+	(e: "cancel", param: typeof callBackData.value): void
+}>()
 function handleCancel() {
 	// 中间区域不要修改
-	emits("cancel", callBackData.value);
-	isShowModal.value = false;
+	emits("cancel", callBackData.value)
+	isShowModal.value = false
 	// 中间区域不要修改
 }
 
 function handleClose() {
 	// 中间区域不要修改
-	emits("close", callBackData.value);
-	isShowModal.value = false;
+	emits("close", callBackData.value)
+	isShowModal.value = false
 	// 中间区域不要修改
 }
 
 function handleConfirm() {
 	// 中间区域不要修改
-	loading.value = true;
-	emits("confirm", callBackData.value, () => {
-		loading.value = false;
-		isShowModal.value = false;
-	});
+	loading.value = true
+	emits(
+		"confirm",
+		callBackData.value,
+		() => {
+			loading.value = false
+			isShowModal.value = false
+		},
+		() => {
+			loading.value = false
+		}
+	)
 	// 中间区域不要修改
 }
 </script>
