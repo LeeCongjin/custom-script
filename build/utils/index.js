@@ -9,6 +9,11 @@ export function stringToHump(string) {
         return p2.toUpperCase();
     });
 }
+export function stringToSeparator(string) {
+    return string.replace(/(\W)/g, (s, p1) => {
+        return "-" + p1.toLowerCase();
+    });
+}
 export function formatToLowerCase(string) {
     return string.toLowerCase().replace(/[_|-]/g, () => "-");
 }

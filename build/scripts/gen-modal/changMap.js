@@ -1,4 +1,4 @@
-import { firstWordUpper, formatToLowerCase, stringToHump, } from "../../utils/index.js";
+import { firstWordUpper, formatToLowerCase, stringToHump, stringToSeparator, } from "../../utils/index.js";
 export const modalProviderChangeMap = (name, importPath) => {
     return {
         "<!-- 新增Modal -->": `<${firstWordUpper(stringToHump(name))}Modal
@@ -33,7 +33,7 @@ export const useModalChangeMap = (name) => {
 export const TemplateModalChangeMap = (name) => {
     name = name.toLowerCase();
     return {
-        modalClassName: `${stringToHump(name)}-modal`,
+        modalClassName: `${stringToSeparator(name)}-modal`,
     };
 };
 //# sourceMappingURL=changMap.js.map

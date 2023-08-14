@@ -2,6 +2,7 @@ import {
 	firstWordUpper,
 	formatToLowerCase,
 	stringToHump,
+	stringToSeparator,
 } from "../../utils/index.js"
 
 export type ChangeMap = Record<string, string>
@@ -49,6 +50,6 @@ export const useModalChangeMap: (name: string) => ChangeMap = (name) => {
 export const TemplateModalChangeMap: (name: string) => ChangeMap = (name) => {
 	name = name.toLowerCase()
 	return {
-		modalClassName: `${stringToHump(name)}-modal`,
+		modalClassName: `${stringToSeparator(name)}-modal`,
 	}
 }
