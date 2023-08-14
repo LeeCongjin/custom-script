@@ -96,8 +96,9 @@ export async function genModal() {
 			)
 		)
 		await fse.writeFile(modalProviderPath, modalProviderData)
+		spin.succeed("生成成功～～")
+
 	} catch (e) {
 		spin.fail("生成失败，请重试")
 	}
-	spin.succeed("生成成功～～")
 }

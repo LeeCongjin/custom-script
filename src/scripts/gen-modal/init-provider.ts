@@ -18,8 +18,9 @@ export async function initProvider() {
 			path.join(templateModalDirPath, "ModalProvider.vue"),
 			path.join(terminalPath, `ModalProvider.vue`)
 		);
+		spin.succeed("生成成功～～");
+
 	} catch (e) {
 		spin.fail("生成失败，请重试");
 	}
-	spin.succeed("生成成功～～");
 }
