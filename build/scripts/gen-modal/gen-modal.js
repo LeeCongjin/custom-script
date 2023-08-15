@@ -47,10 +47,10 @@ export async function genModal() {
         await fse.outputFile(path.join(outputDirPath, `${firstWordUpper(stringToHump(modalName))}Modal.vue`), TemplateModalData);
         const modalProviderData = await reWriteTemplate(modalProviderPath, modalProviderChangeMap(modalName, "./" + path.relative(path.dirname(modalProviderPath), outputDirPath)));
         await fse.writeFile(modalProviderPath, modalProviderData);
+        spin.succeed("生成成功～～");
     }
     catch (e) {
         spin.fail("生成失败，请重试");
     }
-    spin.succeed("生成成功～～");
 }
 //# sourceMappingURL=gen-modal.js.map

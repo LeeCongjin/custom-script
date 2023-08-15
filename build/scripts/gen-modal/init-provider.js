@@ -9,10 +9,10 @@ export async function initProvider() {
     const spin = ora("生成中～～").start();
     try {
         await fse.copy(path.join(templateModalDirPath, "ModalProvider.vue"), path.join(terminalPath, `ModalProvider.vue`));
+        spin.succeed("生成成功～～");
     }
     catch (e) {
         spin.fail("生成失败，请重试");
     }
-    spin.succeed("生成成功～～");
 }
 //# sourceMappingURL=init-provider.js.map
